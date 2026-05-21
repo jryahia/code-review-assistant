@@ -106,7 +106,8 @@ class AnalysisEngine:
                 result.files_skipped += 1
                 continue
             if fr is None:
-                result.files_skipped += 1
+                # None indicates the file was legitimately excluded (removed, unsupported, ignored)
+                # These are not counted as skipped — they were intentionally filtered out.
                 continue
             result.files.append(fr)
             result.files_analyzed += 1
