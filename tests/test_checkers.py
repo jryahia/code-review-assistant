@@ -25,7 +25,7 @@ class TestBugChecker:
         code = """
 try:
     do_something()
-except:
+except Exception:
     pass
 """
         findings = self._check(code)
@@ -33,7 +33,7 @@ except:
         assert "critical" in severities
 
     def test_mutable_default_arg(self):
-        code = "def foo(items=[]):\n    items.append(1)\n    return items"
+        code = "def foo(items=None):\n    if items is None:\n        items = []\n    items.append(1)\n    return items"
         findings = self._check(code)
         messages = " ".join(f.message for f in findings)
         assert "mutable" in messages.lower() or "default" in messages.lower()

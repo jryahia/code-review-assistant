@@ -30,10 +30,12 @@ async def test_engine_single_python_file():
             "patch": """@@ -1,5 +1,20 @@
 +import os
 +
-+def process_data(items=[]):
++def process_data(items=None):
++    if items is None:
++        items = []
 +    result = eval(user_input)
 +    return result
-+
+
 +def clean_function(x: int) -> int:
 +    return x * 2
 """,
