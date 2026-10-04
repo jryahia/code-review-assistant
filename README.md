@@ -1,5 +1,23 @@
 # Code Review Assistant Pro
 
+**Automates GitHub PR review: fetches the diff, analyzes bugs, security, style, performance and architecture across 8 languages, and scores the PR 0-100.**
+
+![Python](https://img.shields.io/badge/Python-161b22?style=for-the-badge&labelColor=161b22&color=161b22) ![FastAPI](https://img.shields.io/badge/FastAPI-161b22?style=for-the-badge&labelColor=161b22&color=161b22) ![Flet](https://img.shields.io/badge/Flet-161b22?style=for-the-badge&labelColor=161b22&color=161b22) ![GitHub API](https://img.shields.io/badge/GitHub%20API-161b22?style=for-the-badge&labelColor=161b22&color=161b22) ![OpenAI](https://img.shields.io/badge/OpenAI-161b22?style=for-the-badge&labelColor=161b22&color=161b22) ![Anthropic](https://img.shields.io/badge/Anthropic-161b22?style=for-the-badge&labelColor=161b22&color=161b22) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-161b22?style=for-the-badge&labelColor=161b22&color=161b22) ![Docker](https://img.shields.io/badge/Docker-161b22?style=for-the-badge&labelColor=161b22&color=161b22)
+
+```mermaid
+flowchart LR
+    S0["GitHub PR URL / webhook"]
+    S1["Diff fetch"]
+    S2["Static analyzers (5 categories)"]
+    S3["Optional AI review"]
+    S4["Score + Markdown / PDF / PR comment"]
+    S0 --> S1 --> S2 --> S3 --> S4
+```
+
+## Problem it solves
+
+Reviewers spend time on issues a tool could catch, and small teams often merge without a second pair of eyes. This assistant runs static checks plus an optional AI pass on every changed file and exports the result as a report or a PR comment.
+
 A production-quality, AI-powered code review automation tool with a dark-themed desktop UI.
 
 ## Features
@@ -19,16 +37,16 @@ A production-quality, AI-powered code review automation tool with a dark-themed 
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│  ⚡ Code Review Assistant                            API :8765  │
+│   Code Review Assistant                            API :8765  │
 ├──────────────┬──────────────────────────────────────────────────┤
 │  Dashboard   │  Dashboard                         [New Review]  │
 │  New Review  │                                                   │
-│  History     │  📋 Total    📊 Avg    🔴 Critical  🟡 Warnings  │
+│  History     │   Total     Avg     Critical   Warnings  │
 │  Projects    │  42 reviews  76.3     12 issues    34 warnings   │
 │  Settings    │                                                   │
 │              │  Recent Reviews                                   │
 │              │  ┌─────────────────────────────────────────────┐ │
-│              │  │ feat: add auth middleware           92 ✅   │ │
+│              │  │ feat: add auth middleware           92 Yes   │ │
 │              │  │ myorg/api • #142 • 2025-01-15  completed    │ │
 │              │  └─────────────────────────────────────────────┘ │
 └──────────────┴──────────────────────────────────────────────────┘
@@ -130,7 +148,7 @@ curl -X POST http://localhost:8765/api/reviews/{id}/export \
 
 ## Analyzer Categories
 
-### 🐛 Bugs
+### Bugs
 - Bare `except:` clauses
 - Mutable default arguments
 - Off-by-one errors (indexing with `.length`)
@@ -138,7 +156,7 @@ curl -X POST http://localhost:8765/api/reviews/{id}/export \
 - Infinite loops without exit conditions
 - Silent exception suppression
 
-### 🔒 Security
+### Security
 - SQL injection via string formatting/f-strings
 - XSS via `innerHTML` assignment
 - Command injection (`shell=True`, `os.system`)
@@ -146,21 +164,21 @@ curl -X POST http://localhost:8765/api/reviews/{id}/export \
 - `eval()` / `exec()` usage
 - Insecure deserialization
 
-### ✨ Style
+### Style
 - Naming convention violations (snake_case/camelCase/PascalCase)
 - Line length > 120 characters
 - Function length > 60 lines (warning)
 - High cyclomatic complexity (≥10)
 - Duplicate code blocks
 
-### ⚡ Performance
+### Performance
 - N+1 query patterns (DB query inside loop)
 - Memory leaks (unclosed resources, event listeners)
 - String concatenation in loops (O(n²))
 - Triple-nested loops (O(n³))
 - Sorting to find min/max instead of min()/max()
 
-### 🏗 Architecture
+### Architecture
 - God functions (>100 lines)
 - Deep nesting (>4 levels)
 - Magic numbers (unexplained numeric literals)
@@ -172,10 +190,10 @@ curl -X POST http://localhost:8765/api/reviews/{id}/export \
 
 | Score | Label | Color |
 |-------|-------|-------|
-| 90-100 | Excellent | 🟢 Green |
-| 70-89 | Good | 🔵 Blue |
-| 40-69 | Needs Work | 🟡 Yellow |
-| 0-39 | Poor | 🔴 Red |
+| 90-100 | Excellent |  Green |
+| 70-89 | Good |  Blue |
+| 40-69 | Needs Work |  Yellow |
+| 0-39 | Poor |  Red |
 
 **Severity weights:**
 - Critical: -10 points each
