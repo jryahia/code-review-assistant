@@ -288,7 +288,7 @@ class ReviewDetailView(ft.Column):
         if not self._review:
             self.controls = [
                 ft.Container(
-                    content=empty_state("Review not found", icon="❌"),
+                    content=empty_state("Review not found", icon=ft.icons.ERROR_OUTLINE),
                     expand=True,
                     bgcolor=BG,
                     alignment=ft.alignment.center,
@@ -324,7 +324,7 @@ class ReviewDetailView(ft.Column):
                             icon_color=TEXT_DIM,
                             on_click=lambda _: self.on_back() if self.on_back else None,
                         ),
-                        empty_state("Review Failed", error, icon="❌"),
+                        empty_state("Review Failed", error, icon=ft.icons.ERROR_OUTLINE),
                     ],
                     spacing=12,
                     horizontal_alignment=ft.CrossAxisAlignment.CENTER,
@@ -411,9 +411,9 @@ class ReviewDetailView(ft.Column):
                                     ),
                                     ft.Row(
                                         controls=[
-                                            stat_card("🔴 Critical", str(r.get("critical_count", 0)), color=CRITICAL, width=100),
-                                            stat_card("🟡 Warning", str(r.get("warning_count", 0)), color=WARNING, width=100),
-                                            stat_card("🔵 Suggest", str(r.get("suggestion_count", 0)), color=SUGGESTION, width=100),
+                                            stat_card("Critical", str(r.get("critical_count", 0)), color=CRITICAL, width=100),
+                                            stat_card("Warning", str(r.get("warning_count", 0)), color=WARNING, width=100),
+                                            stat_card("Suggest", str(r.get("suggestion_count", 0)), color=SUGGESTION, width=100),
                                         ],
                                         spacing=8,
                                     ),
@@ -428,7 +428,7 @@ class ReviewDetailView(ft.Column):
                     *([card(
                         ft.Column(
                             controls=[
-                                ft.Text("🤖 AI Summary", size=12, color=TEXT_DIM, weight=ft.FontWeight.W_600),
+                                ft.Text("Summary", size=12, color=TEXT_DIM, weight=ft.FontWeight.W_600),
                                 ft.Text(r["ai_summary"], size=12, color=TEXT),
                             ],
                             spacing=4,
@@ -497,7 +497,7 @@ class ReviewDetailView(ft.Column):
     def _build_findings_panel(self, file_reviews: List[Dict]) -> ft.Container:
         if not file_reviews:
             return ft.Container(
-                content=empty_state("No files analyzed", icon="📂"),
+                content=empty_state("No files analyzed", icon=ft.icons.FOLDER_OPEN),
                 expand=True,
                 alignment=ft.alignment.center,
             )
@@ -539,7 +539,7 @@ class ReviewDetailView(ft.Column):
             else:
                 finding_controls = [
                     ft.Container(
-                        content=ft.Text("✅ No issues found in this file", size=12, color="#22c55e"),
+                        content=ft.Text("No issues found in this file", size=12, color="#22c55e"),
                         padding=ft.padding.all(12),
                     )
                 ]

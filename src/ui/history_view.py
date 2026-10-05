@@ -209,7 +209,7 @@ class HistoryView(ft.Column):
         except Exception as ex:
             show_snack(self._page, f"Error: {ex}", error=True)
             self._reviews_container.controls = [
-                empty_state("Failed to load reviews", str(ex), icon="❌")
+                empty_state("Failed to load reviews", str(ex), icon=ft.icons.ERROR_OUTLINE)
             ]
             if self._page:
                 self._page.update()
@@ -227,7 +227,7 @@ class HistoryView(ft.Column):
                     content=empty_state(
                         "No reviews found",
                         "Try adjusting your search filters",
-                        icon="🔍",
+                        icon=ft.icons.SEARCH,
                     ),
                     height=300,
                     alignment=ft.alignment.center,
@@ -299,8 +299,8 @@ class HistoryView(ft.Column):
                             score_badge(score) if status == "completed" else status_chip(status),
                             ft.Row(
                                 controls=[
-                                    ft.Text(f"🔴{critical}", size=10, color=CRITICAL),
-                                    ft.Text(f"🟡{warnings}", size=10, color=WARNING),
+                                    ft.Text(f"● {critical}", size=10, color=CRITICAL),
+                                    ft.Text(f"● {warnings}", size=10, color=WARNING),
                                 ],
                                 spacing=8,
                             ),

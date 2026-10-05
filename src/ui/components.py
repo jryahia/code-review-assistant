@@ -28,11 +28,11 @@ SEVERITY_COLORS = {
 }
 
 CATEGORY_ICONS = {
-    "bugs": "🐛",
-    "security": "🔒",
-    "performance": "⚡",
-    "architecture": "🏗",
-    "style": "✨",
+    "bugs": ft.icons.BUG_REPORT,
+    "security": ft.icons.LOCK,
+    "performance": ft.icons.SPEED,
+    "architecture": ft.icons.ACCOUNT_TREE,
+    "style": ft.icons.BRUSH,
 }
 
 
@@ -169,7 +169,7 @@ def stat_card(
             controls=[
                 ft.Row(
                     controls=[
-                        ft.Text(icon or "", size=18) if icon else ft.Container(),
+                        ft.Icon(icon, size=18, color=color) if icon else ft.Container(),
                         ft.Text(label, size=11, color=TEXT_DIM),
                     ],
                     spacing=4,
@@ -196,7 +196,7 @@ def finding_card(
     severity = finding.get("severity", "suggestion")
     color = SEVERITY_COLORS.get(severity.lower(), TEXT_DIM)
     category = finding.get("category", "")
-    icon = CATEGORY_ICONS.get(category, "•")
+    icon = CATEGORY_ICONS.get(category, ft.icons.LABEL_OUTLINE)
     line_no = finding.get("line_number")
     message = finding.get("message", "")
     snippet = finding.get("code_snippet", "")
@@ -204,7 +204,7 @@ def finding_card(
 
     header_controls: List[ft.Control] = [
         severity_badge(severity),
-        ft.Text(f"{icon} {category.capitalize()}", size=11, color=TEXT_DIM),
+        ft.Row([ft.Icon(icon, size=12, color=TEXT_DIM), ft.Text(category.capitalize(), size=11, color=TEXT_DIM)], spacing=4),
     ]
     if line_no:
         header_controls.append(
@@ -251,7 +251,7 @@ def finding_card(
         body_controls.append(
             ft.Row(
                 controls=[
-                    ft.Text("💡", size=12),
+                    ft.Icon(ft.icons.LIGHTBULB_OUTLINE, size=12, color=ACCENT),
                     ft.Text(suggestion, size=11, color=ACCENT, italic=True),
                 ],
                 spacing=4,
@@ -334,12 +334,12 @@ def loading_spinner(message: str = "Loading...") -> ft.Column:
 def empty_state(
     title: str,
     subtitle: str = "",
-    icon: str = "📭",
+    icon: str = ft.icons.INBOX,
     action_label: Optional[str] = None,
     on_action: Optional[Callable] = None,
 ) -> ft.Column:
     controls: List[ft.Control] = [
-        ft.Text(icon, size=48),
+        ft.Icon(icon, size=48, color=TEXT_DIM),
         ft.Text(title, size=16, weight=ft.FontWeight.W_600, color=TEXT),
     ]
     if subtitle:

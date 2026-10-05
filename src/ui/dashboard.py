@@ -129,31 +129,31 @@ class DashboardView(ft.Column):
                     "Total Reviews",
                     str(s.get("total_reviews", 0)),
                     color=ACCENT,
-                    icon="📋",
+                    icon=ft.icons.CONTENT_PASTE,
                 ),
                 stat_card(
                     "Avg Score",
                     f"{s.get('avg_score', 0):.1f}",
                     color=SUCCESS,
-                    icon="📊",
+                    icon=ft.icons.BAR_CHART,
                 ),
                 stat_card(
                     "Critical Issues",
                     str(s.get("critical_total", 0)),
                     color=CRITICAL,
-                    icon="🔴",
+                    icon=ft.icons.ERROR_OUTLINE,
                 ),
                 stat_card(
                     "Warnings",
                     str(s.get("warning_total", 0)),
                     color=WARNING,
-                    icon="🟡",
+                    icon=ft.icons.WARNING_AMBER,
                 ),
                 stat_card(
                     "Suggestions",
                     str(s.get("suggestion_total", 0)),
                     color=SUGGESTION,
-                    icon="🔵",
+                    icon=ft.icons.LIGHTBULB_OUTLINE,
                 ),
             ],
             spacing=12,
@@ -168,7 +168,7 @@ class DashboardView(ft.Column):
                 content=empty_state(
                     "No reviews yet",
                     "Start by pasting a GitHub PR URL",
-                    icon="🔍",
+                    icon=ft.icons.SEARCH,
                     action_label="New Review",
                     on_action=lambda _: self.on_new_review() if self.on_new_review else None,
                 ),
@@ -255,7 +255,7 @@ class DashboardView(ft.Column):
 
         if not trend:
             content: ft.Control = ft.Container(
-                content=empty_state("No trend data yet", icon="📈"),
+                content=empty_state("No trend data yet", icon=ft.icons.SHOW_CHART),
                 height=150,
                 alignment=ft.alignment.center,
             )

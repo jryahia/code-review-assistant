@@ -135,7 +135,7 @@ def launch_ui(api_port: int = 8765) -> None:
                 controls=[
                     ft.Row(
                         controls=[
-                            ft.Text("⚡", size=20),
+                            ft.Icon(ft.icons.BOLT, size=20),
                             ft.Text(
                                 "Code Review Assistant",
                                 size=16,

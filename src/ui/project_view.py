@@ -218,7 +218,7 @@ class ProjectView(ft.Column):
                     content=empty_state(
                         "No projects yet",
                         "Add a GitHub repository to monitor its PRs automatically",
-                        icon="📦",
+                        icon=ft.icons.INVENTORY_2,
                         action_label="Add First Project",
                         on_action=self._toggle_form,
                     ),

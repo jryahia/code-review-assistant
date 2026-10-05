@@ -494,9 +494,9 @@ class SettingsView(ft.Column):
             from src.github_client import GitHubClient
             async with GitHubClient(token=token_val) as client:
                 user = await client.verify_token()
-            show_snack(self._page, f"✅ Token valid — logged in as @{user.get('login', '?')}")
+            show_snack(self._page, f"Token valid — logged in as @{user.get('login', '?')}")
         except Exception as ex:
-            show_snack(self._page, f"❌ Token invalid: {ex}", error=True)
+            show_snack(self._page, f"Token invalid: {ex}", error=True)
 
     async def refresh(self) -> None:
         await self.load()
