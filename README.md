@@ -58,7 +58,8 @@ A production-quality, AI-powered code review automation tool with a dark-themed 
 
 ```bash
 # Clone and install
-cd ~/.hermes/profiles/codex/workspace/projects/code-review-assistant
+git clone https://github.com/jryahia/code-review-assistant.git
+cd code-review-assistant
 pip install -r requirements.txt
 
 # Copy and configure environment
