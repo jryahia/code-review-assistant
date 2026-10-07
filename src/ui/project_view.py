@@ -53,7 +53,7 @@ class ProjectView(ft.Column):
             label="Auto-watch new PRs",
             value=False,
             active_color=ACCENT,
-            label_style=ft.TextStyle(color=TEXT, size=12),
+            label_text_style=ft.TextStyle(color=TEXT, size=12),
         )
         self._form_poll_interval = styled_input("Poll Interval (seconds)", "300", value="300")
         self._form_default_branch = styled_input("Default Branch", "main", value="main")
@@ -85,7 +85,7 @@ class ProjectView(ft.Column):
                                 primary_button(
                                     "Add Project",
                                     on_click=self._toggle_form,
-                                    icon=ft.icons.ADD,
+                                    icon=ft.Icons.ADD,
                                 )
                             ],
                         ),
@@ -98,7 +98,7 @@ class ProjectView(ft.Column):
                 ),
                 expand=True,
                 bgcolor=BG,
-                padding=ft.padding.all(24),
+                padding=ft.Padding.all(24),
             )
         ]
 
@@ -133,7 +133,7 @@ class ProjectView(ft.Column):
                 padding=20,
             ),
             visible=False,
-            margin=ft.margin.only(bottom=16),
+            margin=ft.Margin.only(bottom=16),
         )
         return self._form_container
 
@@ -218,12 +218,12 @@ class ProjectView(ft.Column):
                     content=empty_state(
                         "No projects yet",
                         "Add a GitHub repository to monitor its PRs automatically",
-                        icon=ft.icons.INVENTORY_2,
+                        icon=ft.Icons.INVENTORY_2,
                         action_label="Add First Project",
                         on_action=self._toggle_form,
                     ),
                     height=300,
-                    alignment=ft.alignment.center,
+                    alignment=ft.Alignment.CENTER,
                 )
             ]
             return
@@ -254,9 +254,9 @@ class ProjectView(ft.Column):
                 weight=ft.FontWeight.W_600,
             ),
             bgcolor=(SUCCESS + "22") if auto_watch else SURFACE,
-            border=ft.border.all(1, SUCCESS if auto_watch else BORDER),
+            border=ft.Border.all(1, SUCCESS if auto_watch else BORDER),
             border_radius=6,
-            padding=ft.padding.symmetric(horizontal=8, vertical=3),
+            padding=ft.Padding.symmetric(horizontal=8, vertical=3),
         )
 
         return card(
@@ -283,14 +283,14 @@ class ProjectView(ft.Column):
                             ft.Row(
                                 controls=[
                                     ft.IconButton(
-                                        icon=ft.icons.REFRESH,
+                                        icon=ft.Icons.REFRESH,
                                         icon_size=16,
                                         icon_color=TEXT_DIM,
                                         tooltip="Check for new PRs",
                                         on_click=lambda _, p=project: show_snack(self._page, f"Checking {p['name']}..."),
                                     ),
                                     ft.IconButton(
-                                        icon=ft.icons.DELETE_OUTLINE,
+                                        icon=ft.Icons.DELETE_OUTLINE,
                                         icon_size=16,
                                         icon_color=CRITICAL + "aa",
                                         tooltip="Remove project",
@@ -310,7 +310,7 @@ class ProjectView(ft.Column):
                                 content=ft.Text(c.strip(), size=10, color=ACCENT),
                                 bgcolor=ACCENT + "15",
                                 border_radius=4,
-                                padding=ft.padding.symmetric(horizontal=6, vertical=2),
+                                padding=ft.Padding.symmetric(horizontal=6, vertical=2),
                             )
                             for c in cats.split(",") if c.strip()
                         ],

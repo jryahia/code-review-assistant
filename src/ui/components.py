@@ -28,11 +28,11 @@ SEVERITY_COLORS = {
 }
 
 CATEGORY_ICONS = {
-    "bugs": ft.icons.BUG_REPORT,
-    "security": ft.icons.LOCK,
-    "performance": ft.icons.SPEED,
-    "architecture": ft.icons.ACCOUNT_TREE,
-    "style": ft.icons.BRUSH,
+    "bugs": ft.Icons.BUG_REPORT,
+    "security": ft.Icons.LOCK,
+    "performance": ft.Icons.SPEED,
+    "architecture": ft.Icons.ACCOUNT_TREE,
+    "style": ft.Icons.BRUSH,
 }
 
 
@@ -51,7 +51,7 @@ def card(
         padding=padding,
         margin=margin,
         expand=expand,
-        border=ft.border.all(1, BORDER),
+        border=ft.Border.all(1, BORDER),
     )
 
 
@@ -91,7 +91,7 @@ def score_gauge(score: float, size: float = 120) -> ft.Container:
                         color=color,
                         bgcolor=BORDER,
                     ),
-                    alignment=ft.alignment.center,
+                    alignment=ft.Alignment.CENTER,
                 ),
                 ft.Container(
                     content=ft.Column(
@@ -115,7 +115,7 @@ def score_gauge(score: float, size: float = 120) -> ft.Container:
                     ),
                     width=size,
                     height=size,
-                    alignment=ft.alignment.center,
+                    alignment=ft.Alignment.CENTER,
                 ),
             ],
             width=size,
@@ -135,9 +135,9 @@ def severity_badge(severity: str) -> ft.Container:
     return ft.Container(
         content=ft.Text(label, size=9, weight=ft.FontWeight.BOLD, color=color),
         bgcolor=bg_color,
-        border=ft.border.all(1, color + "55"),
+        border=ft.Border.all(1, color + "55"),
         border_radius=4,
-        padding=ft.padding.symmetric(horizontal=6, vertical=2),
+        padding=ft.Padding.symmetric(horizontal=6, vertical=2),
     )
 
 
@@ -149,9 +149,9 @@ def score_badge(score: float, size: int = 12) -> ft.Container:
     return ft.Container(
         content=ft.Text(f"{score:.0f}", size=size, weight=ft.FontWeight.BOLD, color=color),
         bgcolor=color + "22",
-        border=ft.border.all(1, color + "55"),
+        border=ft.Border.all(1, color + "55"),
         border_radius=6,
-        padding=ft.padding.symmetric(horizontal=8, vertical=3),
+        padding=ft.Padding.symmetric(horizontal=8, vertical=3),
     )
 
 
@@ -179,9 +179,9 @@ def stat_card(
             spacing=4,
         ),
         bgcolor=CARD,
-        border=ft.border.all(1, BORDER),
+        border=ft.Border.all(1, BORDER),
         border_radius=10,
-        padding=ft.padding.all(16),
+        padding=ft.Padding.all(16),
         width=width,
     )
 
@@ -196,7 +196,7 @@ def finding_card(
     severity = finding.get("severity", "suggestion")
     color = SEVERITY_COLORS.get(severity.lower(), TEXT_DIM)
     category = finding.get("category", "")
-    icon = CATEGORY_ICONS.get(category, ft.icons.LABEL_OUTLINE)
+    icon = CATEGORY_ICONS.get(category, ft.Icons.LABEL_OUTLINE)
     line_no = finding.get("line_number")
     message = finding.get("message", "")
     snippet = finding.get("code_snippet", "")
@@ -212,7 +212,7 @@ def finding_card(
                 content=ft.Text(f":{line_no}", size=10, color=TEXT_DIM),
                 bgcolor=SURFACE,
                 border_radius=4,
-                padding=ft.padding.symmetric(horizontal=5, vertical=2),
+                padding=ft.Padding.symmetric(horizontal=5, vertical=2),
             )
         )
     if filename:
@@ -242,8 +242,8 @@ def finding_card(
                 ),
                 bgcolor=SURFACE,
                 border_radius=6,
-                border=ft.border.only(left=ft.BorderSide(3, color)),
-                padding=ft.padding.all(8),
+                border=ft.Border.only(left=ft.BorderSide(3, color)),
+                padding=ft.Padding.all(8),
             )
         )
 
@@ -251,7 +251,7 @@ def finding_card(
         body_controls.append(
             ft.Row(
                 controls=[
-                    ft.Icon(ft.icons.LIGHTBULB_OUTLINE, size=12, color=ACCENT),
+                    ft.Icon(ft.Icons.LIGHTBULB_OUTLINE, size=12, color=ACCENT),
                     ft.Text(suggestion, size=11, color=ACCENT, italic=True),
                 ],
                 spacing=4,
@@ -261,10 +261,10 @@ def finding_card(
     return ft.Container(
         content=ft.Column(controls=body_controls, spacing=6),
         bgcolor=SURFACE,
-        border=ft.border.only(left=ft.BorderSide(3, color)),
+        border=ft.Border.only(left=ft.BorderSide(3, color)),
         border_radius=8,
-        padding=ft.padding.all(12),
-        margin=ft.margin.only(bottom=4),
+        padding=ft.Padding.all(12),
+        margin=ft.Margin.only(bottom=4),
     )
 
 
@@ -306,10 +306,10 @@ def file_tree_item(
             expand=True,
         ),
         bgcolor=ACCENT_DIM if selected else SURFACE,
-        border=ft.border.all(1, ACCENT if selected else BORDER),
+        border=ft.Border.all(1, ACCENT if selected else BORDER),
         border_radius=6,
-        padding=ft.padding.symmetric(horizontal=10, vertical=8),
-        margin=ft.margin.only(bottom=4),
+        padding=ft.Padding.symmetric(horizontal=10, vertical=8),
+        margin=ft.Margin.only(bottom=4),
         on_click=on_click,
         ink=True,
     )
@@ -334,7 +334,7 @@ def loading_spinner(message: str = "Loading...") -> ft.Column:
 def empty_state(
     title: str,
     subtitle: str = "",
-    icon: str = ft.icons.INBOX,
+    icon: str = ft.Icons.INBOX,
     action_label: Optional[str] = None,
     on_action: Optional[Callable] = None,
 ) -> ft.Column:
@@ -374,9 +374,9 @@ def status_chip(status: str) -> ft.Container:
     return ft.Container(
         content=ft.Text(status.capitalize(), size=10, color=color, weight=ft.FontWeight.W_600),
         bgcolor=color + "22",
-        border=ft.border.all(1, color + "55"),
+        border=ft.Border.all(1, color + "55"),
         border_radius=10,
-        padding=ft.padding.symmetric(horizontal=8, vertical=3),
+        padding=ft.Padding.symmetric(horizontal=8, vertical=3),
     )
 
 
@@ -439,7 +439,7 @@ def primary_button(
     width: Optional[int] = None,
 ) -> ft.ElevatedButton:
     return ft.ElevatedButton(
-        text=text if not loading else "Loading...",
+        content=text if not loading else "Loading...",
         icon=icon,
         on_click=on_click,
         disabled=disabled or loading,
@@ -447,7 +447,7 @@ def primary_button(
         color=TEXT,
         style=ft.ButtonStyle(
             shape=ft.RoundedRectangleBorder(radius=8),
-            padding=ft.padding.symmetric(horizontal=20, vertical=12),
+            padding=ft.Padding.symmetric(horizontal=20, vertical=12),
         ),
         width=width,
     )
@@ -460,7 +460,7 @@ def secondary_button(
     disabled: bool = False,
 ) -> ft.OutlinedButton:
     return ft.OutlinedButton(
-        text=text,
+        content=text,
         icon=icon,
         on_click=on_click,
         disabled=disabled,
@@ -468,7 +468,7 @@ def secondary_button(
             color=TEXT,
             side=ft.BorderSide(1, BORDER),
             shape=ft.RoundedRectangleBorder(radius=8),
-            padding=ft.padding.symmetric(horizontal=16, vertical=10),
+            padding=ft.Padding.symmetric(horizontal=16, vertical=10),
         ),
     )
 

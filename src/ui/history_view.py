@@ -55,7 +55,7 @@ class HistoryView(ft.Column):
 
         self._search_field = ft.TextField(
             hint_text="Search by repo name...",
-            prefix_icon=ft.icons.SEARCH,
+            prefix_icon=ft.Icons.SEARCH,
             bgcolor=SURFACE,
             border_color=BORDER,
             focused_border_color=ACCENT,
@@ -81,7 +81,7 @@ class HistoryView(ft.Column):
             border_color=BORDER,
             focused_border_color=ACCENT,
             text_style=ft.TextStyle(color=TEXT, size=12),
-            on_change=self._on_filter_change,
+            on_select=self._on_filter_change,
         )
         self._min_score_field = ft.TextField(
             hint_text="Min",
@@ -136,7 +136,7 @@ class HistoryView(ft.Column):
                                 primary_button(
                                     "Search",
                                     on_click=lambda _: self._page.run_task(self.refresh) if self._page else None,
-                                    icon=ft.icons.SEARCH,
+                                    icon=ft.Icons.SEARCH,
                                 ),
                             ],
                             spacing=10,
@@ -153,7 +153,7 @@ class HistoryView(ft.Column):
                 ),
                 expand=True,
                 bgcolor=BG,
-                padding=ft.padding.all(24),
+                padding=ft.Padding.all(24),
             )
         ]
 
@@ -209,7 +209,7 @@ class HistoryView(ft.Column):
         except Exception as ex:
             show_snack(self._page, f"Error: {ex}", error=True)
             self._reviews_container.controls = [
-                empty_state("Failed to load reviews", str(ex), icon=ft.icons.ERROR_OUTLINE)
+                empty_state("Failed to load reviews", str(ex), icon=ft.Icons.ERROR_OUTLINE)
             ]
             if self._page:
                 self._page.update()
@@ -227,10 +227,10 @@ class HistoryView(ft.Column):
                     content=empty_state(
                         "No reviews found",
                         "Try adjusting your search filters",
-                        icon=ft.icons.SEARCH,
+                        icon=ft.Icons.SEARCH,
                     ),
                     height=300,
-                    alignment=ft.alignment.center,
+                    alignment=ft.Alignment.CENTER,
                 )
             ]
             return
@@ -311,14 +311,14 @@ class HistoryView(ft.Column):
                     ft.Row(
                         controls=[
                             ft.IconButton(
-                                icon=ft.icons.OPEN_IN_NEW,
+                                icon=ft.Icons.OPEN_IN_NEW,
                                 icon_size=16,
                                 icon_color=TEXT_DIM,
                                 tooltip="Open Review",
                                 on_click=lambda _, rid=review["id"]: self._open(rid),
                             ),
                             ft.IconButton(
-                                icon=ft.icons.REFRESH,
+                                icon=ft.Icons.REFRESH,
                                 icon_size=16,
                                 icon_color=TEXT_DIM,
                                 tooltip="Re-run",
@@ -327,7 +327,7 @@ class HistoryView(ft.Column):
                                 ) if self._page else None,
                             ),
                             ft.IconButton(
-                                icon=ft.icons.DELETE_OUTLINE,
+                                icon=ft.Icons.DELETE_OUTLINE,
                                 icon_size=16,
                                 icon_color=CRITICAL + "aa",
                                 tooltip="Delete",
@@ -343,9 +343,9 @@ class HistoryView(ft.Column):
                 vertical_alignment=ft.CrossAxisAlignment.CENTER,
             ),
             bgcolor=SURFACE,
-            border=ft.border.all(1, BORDER),
+            border=ft.Border.all(1, BORDER),
             border_radius=8,
-            padding=ft.padding.symmetric(horizontal=14, vertical=10),
+            padding=ft.Padding.symmetric(horizontal=14, vertical=10),
         )
 
     def _build_pagination(self, total_pages: int) -> None:
@@ -354,13 +354,13 @@ class HistoryView(ft.Column):
             return
 
         btn_prev = ft.IconButton(
-            icon=ft.icons.CHEVRON_LEFT,
+            icon=ft.Icons.CHEVRON_LEFT,
             disabled=self._page_num <= 1,
             icon_color=ACCENT if self._page_num > 1 else TEXT_DIM,
             on_click=lambda _: self._go_page(self._page_num - 1),
         )
         btn_next = ft.IconButton(
-            icon=ft.icons.CHEVRON_RIGHT,
+            icon=ft.Icons.CHEVRON_RIGHT,
             disabled=self._page_num >= total_pages,
             icon_color=ACCENT if self._page_num < total_pages else TEXT_DIM,
             on_click=lambda _: self._go_page(self._page_num + 1),

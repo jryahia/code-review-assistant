@@ -79,7 +79,7 @@ class NewReviewView(ft.Column):
             label="AI Semantic Review",
             value=False,
             active_color=ACCENT,
-            label_style=ft.TextStyle(color=TEXT_DIM, size=12),
+            label_text_style=ft.TextStyle(color=TEXT_DIM, size=12),
         )
         self._category_checks = {
             cat: ft.Checkbox(
@@ -134,7 +134,7 @@ class NewReviewView(ft.Column):
                 ),
                 expand=True,
                 bgcolor=BG,
-                padding=ft.padding.all(24),
+                padding=ft.Padding.all(24),
             )
         ]
 
@@ -182,7 +182,7 @@ class NewReviewView(ft.Column):
             return
 
         self._submit_btn.disabled = True
-        self._submit_btn.text = "Analyzing..."
+        self._submit_btn.content = "Analyzing..."
         if self._page:
             self._page.update()
 
@@ -212,7 +212,7 @@ class NewReviewView(ft.Column):
             show_snack(self._page, f"Error: {ex}", error=True)
         finally:
             self._submit_btn.disabled = False
-            self._submit_btn.text = "Analyze PR"
+            self._submit_btn.content = "Analyze PR"
             if self._page:
                 self._page.update()
 
@@ -243,7 +243,7 @@ class ReviewDetailView(ft.Column):
             ft.Container(
                 content=loading_spinner("Loading review..."),
                 expand=True,
-                alignment=ft.alignment.center,
+                alignment=ft.Alignment.CENTER,
                 bgcolor=BG,
             )
         ]
@@ -268,7 +268,7 @@ class ReviewDetailView(ft.Column):
                                 ft.Container(
                                     content=loading_spinner(f"Analyzing... ({attempt + 1}s)"),
                                     expand=True,
-                                    alignment=ft.alignment.center,
+                                    alignment=ft.Alignment.CENTER,
                                     bgcolor=BG,
                                 )
                             ]
@@ -288,10 +288,10 @@ class ReviewDetailView(ft.Column):
         if not self._review:
             self.controls = [
                 ft.Container(
-                    content=empty_state("Review not found", icon=ft.icons.ERROR_OUTLINE),
+                    content=empty_state("Review not found", icon=ft.Icons.ERROR_OUTLINE),
                     expand=True,
                     bgcolor=BG,
-                    alignment=ft.alignment.center,
+                    alignment=ft.Alignment.CENTER,
                 )
             ]
             return
@@ -320,18 +320,18 @@ class ReviewDetailView(ft.Column):
                 content=ft.Column(
                     controls=[
                         ft.IconButton(
-                            icon=ft.icons.ARROW_BACK,
+                            icon=ft.Icons.ARROW_BACK,
                             icon_color=TEXT_DIM,
                             on_click=lambda _: self.on_back() if self.on_back else None,
                         ),
-                        empty_state("Review Failed", error, icon=ft.icons.ERROR_OUTLINE),
+                        empty_state("Review Failed", error, icon=ft.Icons.ERROR_OUTLINE),
                     ],
                     spacing=12,
                     horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                 ),
                 expand=True,
                 bgcolor=BG,
-                alignment=ft.alignment.center,
+                alignment=ft.Alignment.CENTER,
             )
         ]
 
@@ -344,12 +344,12 @@ class ReviewDetailView(ft.Column):
         branch = r.get("branch", "")
 
         export_dd = ft.PopupMenuButton(
-            icon=ft.icons.DOWNLOAD,
+            icon=ft.Icons.DOWNLOAD,
             icon_color=TEXT_DIM,
             items=[
-                ft.PopupMenuItem(text="Export Markdown", on_click=lambda _: self._export("markdown")),
-                ft.PopupMenuItem(text="Export PDF", on_click=lambda _: self._export("pdf")),
-                ft.PopupMenuItem(text="Post GitHub Comment", on_click=lambda _: self._export("github_comment")),
+                ft.PopupMenuItem(content="Export Markdown", on_click=lambda _: self._export("markdown")),
+                ft.PopupMenuItem(content="Export PDF", on_click=lambda _: self._export("pdf")),
+                ft.PopupMenuItem(content="Post GitHub Comment", on_click=lambda _: self._export("github_comment")),
             ],
             tooltip="Export",
         )
@@ -360,7 +360,7 @@ class ReviewDetailView(ft.Column):
                     ft.Row(
                         controls=[
                             ft.IconButton(
-                                icon=ft.icons.ARROW_BACK,
+                                icon=ft.Icons.ARROW_BACK,
                                 icon_color=TEXT_DIM,
                                 on_click=lambda _: self.on_back() if self.on_back else None,
                                 tooltip="Back",
@@ -439,8 +439,8 @@ class ReviewDetailView(ft.Column):
                 spacing=0,
             ),
             bgcolor=CARD,
-            padding=ft.padding.all(20),
-            border=ft.border.only(bottom=ft.BorderSide(1, BORDER)),
+            padding=ft.Padding.all(20),
+            border=ft.Border.only(bottom=ft.BorderSide(1, BORDER)),
         )
 
     def _build_body(self) -> ft.Row:
@@ -479,9 +479,9 @@ class ReviewDetailView(ft.Column):
                 expand=True,
             ),
             bgcolor=SURFACE,
-            padding=ft.padding.all(12),
+            padding=ft.Padding.all(12),
             width=250,
-            border=ft.border.only(right=ft.BorderSide(1, BORDER)),
+            border=ft.Border.only(right=ft.BorderSide(1, BORDER)),
         )
 
         # Findings panel (right)
@@ -497,9 +497,9 @@ class ReviewDetailView(ft.Column):
     def _build_findings_panel(self, file_reviews: List[Dict]) -> ft.Container:
         if not file_reviews:
             return ft.Container(
-                content=empty_state("No files analyzed", icon=ft.icons.FOLDER_OPEN),
+                content=empty_state("No files analyzed", icon=ft.Icons.FOLDER_OPEN),
                 expand=True,
-                alignment=ft.alignment.center,
+                alignment=ft.Alignment.CENTER,
             )
 
         # Show selected file or all findings
@@ -540,7 +540,7 @@ class ReviewDetailView(ft.Column):
                 finding_controls = [
                     ft.Container(
                         content=ft.Text("No issues found in this file", size=12, color="#22c55e"),
-                        padding=ft.padding.all(12),
+                        padding=ft.Padding.all(12),
                     )
                 ]
 
@@ -564,7 +564,7 @@ class ReviewDetailView(ft.Column):
                 expand=True,
             ),
             expand=True,
-            padding=ft.padding.all(16),
+            padding=ft.Padding.all(16),
         )
 
     def _select_file(self, filename: str) -> None:

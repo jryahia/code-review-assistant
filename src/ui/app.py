@@ -20,11 +20,11 @@ from src.ui.components import (
 )
 
 NAV_ITEMS = [
-    ("dashboard", ft.icons.DASHBOARD_OUTLINED, ft.icons.DASHBOARD, "Dashboard"),
-    ("new_review", ft.icons.ADD_CIRCLE_OUTLINE, ft.icons.ADD_CIRCLE, "New Review"),
-    ("history", ft.icons.HISTORY_OUTLINED, ft.icons.HISTORY, "History"),
-    ("projects", ft.icons.FOLDER_OUTLINED, ft.icons.FOLDER, "Projects"),
-    ("settings", ft.icons.SETTINGS_OUTLINED, ft.icons.SETTINGS, "Settings"),
+    ("dashboard", ft.Icons.DASHBOARD_OUTLINED, ft.Icons.DASHBOARD, "Dashboard"),
+    ("new_review", ft.Icons.ADD_CIRCLE_OUTLINE, ft.Icons.ADD_CIRCLE, "New Review"),
+    ("history", ft.Icons.HISTORY_OUTLINED, ft.Icons.HISTORY, "History"),
+    ("projects", ft.Icons.FOLDER_OUTLINED, ft.Icons.FOLDER, "Projects"),
+    ("settings", ft.Icons.SETTINGS_OUTLINED, ft.Icons.SETTINGS, "Settings"),
 ]
 
 
@@ -135,7 +135,7 @@ def launch_ui(api_port: int = 8765) -> None:
                 controls=[
                     ft.Row(
                         controls=[
-                            ft.Icon(ft.icons.BOLT, size=20),
+                            ft.Icon(ft.Icons.BOLT, size=20),
                             ft.Text(
                                 "Code Review Assistant",
                                 size=16,
@@ -164,8 +164,8 @@ def launch_ui(api_port: int = 8765) -> None:
                 vertical_alignment=ft.CrossAxisAlignment.CENTER,
             ),
             bgcolor=CARD,
-            padding=ft.padding.symmetric(horizontal=20, vertical=12),
-            border=ft.border.only(bottom=ft.BorderSide(1, BORDER)),
+            padding=ft.Padding.symmetric(horizontal=20, vertical=12),
+            border=ft.Border.only(bottom=ft.BorderSide(1, BORDER)),
         )
 
         # ── Main layout ─────────────────────────────────────────────────────
@@ -178,7 +178,7 @@ def launch_ui(api_port: int = 8765) -> None:
                             ft.Container(
                                 content=nav_rail,
                                 bgcolor=SURFACE,
-                                border=ft.border.only(right=ft.BorderSide(1, BORDER)),
+                                border=ft.Border.only(right=ft.BorderSide(1, BORDER)),
                                 width=220,
                             ),
                             content_area,
@@ -210,15 +210,14 @@ def _build_nav_rail(state: Dict, navigate_fn: Optional[Callable]) -> ft.Navigati
 
     return ft.NavigationRail(
         selected_index=0,
-        label_type=ft.NavigationRailLabelType.ALL,
         bgcolor=SURFACE,
         destinations=destinations,
         indicator_color=ACCENT + "22",
         indicator_shape=ft.RoundedRectangleBorder(radius=10),
-        selected_label_style=ft.TextStyle(color=ACCENT, size=11, weight=ft.FontWeight.W_600),
-        unselected_label_style=ft.TextStyle(color=TEXT_DIM, size=11),
+        selected_label_text_style=ft.TextStyle(color=ACCENT, size=11, weight=ft.FontWeight.W_600),
+        unselected_label_text_style=ft.TextStyle(color=TEXT_DIM, size=11),
         leading=ft.Container(height=12),
-        min_width=220,
+        min_extended_width=200,
         extended=True,
     )
 

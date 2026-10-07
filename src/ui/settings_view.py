@@ -84,7 +84,7 @@ class SettingsView(ft.Column):
             label_style=ft.TextStyle(color=TEXT_DIM),
             text_style=ft.TextStyle(color=TEXT, size=12),
             width=280,
-            on_change=self._on_provider_change,
+            on_select=self._on_provider_change,
         )
         self._openai_key = ft.TextField(
             label="OpenAI API Key",
@@ -244,7 +244,7 @@ class SettingsView(ft.Column):
                 ),
                 expand=True,
                 bgcolor=BG,
-                padding=ft.padding.all(24),
+                padding=ft.Padding.all(24),
             )
         ]
 
@@ -360,7 +360,7 @@ class SettingsView(ft.Column):
                                     font_family="monospace",
                                 ),
                                 bgcolor=SURFACE,
-                                padding=ft.padding.symmetric(horizontal=8, vertical=4),
+                                padding=ft.Padding.symmetric(horizontal=8, vertical=4),
                                 border_radius=4,
                             ),
                         ],

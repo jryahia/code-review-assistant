@@ -63,7 +63,7 @@ class DashboardView(ft.Column):
                 ),
                 expand=True,
                 bgcolor=BG,
-                padding=ft.padding.all(24),
+                padding=ft.Padding.all(24),
             )
         ]
 
@@ -71,7 +71,7 @@ class DashboardView(ft.Column):
         return ft.Container(
             content=loading_spinner("Loading dashboard..."),
             expand=True,
-            alignment=ft.alignment.center,
+            alignment=ft.Alignment.CENTER,
         )
 
     def _build_content(self) -> ft.Column:
@@ -83,7 +83,7 @@ class DashboardView(ft.Column):
                     primary_button(
                         "New Review",
                         on_click=lambda _: self.on_new_review() if self.on_new_review else None,
-                        icon=ft.icons.ADD,
+                        icon=ft.Icons.ADD,
                     )
                 ],
             ),
@@ -129,31 +129,31 @@ class DashboardView(ft.Column):
                     "Total Reviews",
                     str(s.get("total_reviews", 0)),
                     color=ACCENT,
-                    icon=ft.icons.CONTENT_PASTE,
+                    icon=ft.Icons.CONTENT_PASTE,
                 ),
                 stat_card(
                     "Avg Score",
                     f"{s.get('avg_score', 0):.1f}",
                     color=SUCCESS,
-                    icon=ft.icons.BAR_CHART,
+                    icon=ft.Icons.BAR_CHART,
                 ),
                 stat_card(
                     "Critical Issues",
                     str(s.get("critical_total", 0)),
                     color=CRITICAL,
-                    icon=ft.icons.ERROR_OUTLINE,
+                    icon=ft.Icons.ERROR_OUTLINE,
                 ),
                 stat_card(
                     "Warnings",
                     str(s.get("warning_total", 0)),
                     color=WARNING,
-                    icon=ft.icons.WARNING_AMBER,
+                    icon=ft.Icons.WARNING_AMBER,
                 ),
                 stat_card(
                     "Suggestions",
                     str(s.get("suggestion_total", 0)),
                     color=SUGGESTION,
-                    icon=ft.icons.LIGHTBULB_OUTLINE,
+                    icon=ft.Icons.LIGHTBULB_OUTLINE,
                 ),
             ],
             spacing=12,
@@ -168,12 +168,12 @@ class DashboardView(ft.Column):
                 content=empty_state(
                     "No reviews yet",
                     "Start by pasting a GitHub PR URL",
-                    icon=ft.icons.SEARCH,
+                    icon=ft.Icons.SEARCH,
                     action_label="New Review",
                     on_action=lambda _: self.on_new_review() if self.on_new_review else None,
                 ),
                 height=200,
-                alignment=ft.alignment.center,
+                alignment=ft.Alignment.CENTER,
             )
         else:
             rows: List[ft.Control] = []
@@ -238,9 +238,9 @@ class DashboardView(ft.Column):
                 expand=True,
             ),
             bgcolor=SURFACE,
-            border=ft.border.all(1, BORDER),
+            border=ft.Border.all(1, BORDER),
             border_radius=8,
-            padding=ft.padding.symmetric(horizontal=14, vertical=10),
+            padding=ft.Padding.symmetric(horizontal=14, vertical=10),
             on_click=lambda _, r=review: self._open_review(r),
             ink=True,
         )
@@ -255,9 +255,9 @@ class DashboardView(ft.Column):
 
         if not trend:
             content: ft.Control = ft.Container(
-                content=empty_state("No trend data yet", icon=ft.icons.SHOW_CHART),
+                content=empty_state("No trend data yet", icon=ft.Icons.SHOW_CHART),
                 height=150,
-                alignment=ft.alignment.center,
+                alignment=ft.Alignment.CENTER,
             )
         else:
             bars: List[ft.Control] = []
@@ -271,7 +271,7 @@ class DashboardView(ft.Column):
                             message=f"Score: {sc:.0f}",
                             content=ft.Container(
                                 bgcolor=col,
-                                border_radius=ft.border_radius.only(top_left=4, top_right=4),
+                                border_radius=ft.BorderRadius.only(top_left=4, top_right=4),
                                 height=max(4, sc * 1.2),
                                 width=18,
                             ),
@@ -288,7 +288,7 @@ class DashboardView(ft.Column):
                             vertical_alignment=ft.CrossAxisAlignment.END,
                         ),
                         height=130,
-                        alignment=ft.alignment.bottom_center,
+                        alignment=ft.Alignment.BOTTOM_CENTER,
                     ),
                     ft.Text("← Older  Newer →", size=10, color=TEXT_DIM, text_align=ft.TextAlign.CENTER),
                 ],
